@@ -1,180 +1,133 @@
-# Portfolio
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Vinita Sachdev | Web Developer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vinita Sachdev | Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <style>
-    :root {
-      --primary: #3f51b5;
-      --accent: #f5f5f5;
-      --text-dark: #333;
-      --text-light: #fff;
-    }
+    :root{--accent:#22d3ee;--bg:#000;--fg:#f1f5f9;--gray:#94a3b8;}
+    *{margin:0;padding:0;box-sizing:border-box;font-family:"Poppins",sans-serif;scroll-behavior:smooth;}
+    body{background:var(--bg);color:var(--fg);}
+    header{position:fixed;top:0;left:0;width:100%;background:rgba(0,0,0,.6);backdrop-filter:blur(12px);border-bottom:1px solid #1e293b;z-index:100;}
+    nav{max-width:1100px;margin:auto;display:flex;justify-content:space-between;align-items:center;padding:1rem 2rem;}
+    .logo{font-size:1.5rem;font-weight:700;color:var(--accent);}
+    .nav-links{display:flex;gap:1.5rem;}
+    .nav-links a{text-decoration:none;color:var(--fg);font-weight:500;transition:color .2s ease;}
+    .nav-links a:hover{color:var(--accent);}
+    section{padding:6rem 2rem;max-width:1100px;margin:auto;}
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    /* ---------- content blocks ---------- */
+    .hero{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));align-items:center;gap:3rem;min-height:100vh;}
+    .hero img{width:100%;border-radius:1.5rem;box-shadow:0 10px 25px rgba(34,211,238,.2);}
+    .hero-content h1{font-size:2.7rem;line-height:1.2;margin-bottom:1rem;}
+    .hero-content p{font-size:1.1rem;color:var(--gray);margin-bottom:2rem;}
 
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background: var(--accent);
-      color: var(--text-dark);
-      line-height: 1.6;
-    }
+    .about,.projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:2rem;align-items:center;}
+    .about img{width:100%;border-radius:1.5rem;}
+    .about-content h2,.projects-title{font-size:2rem;margin-bottom:1rem;}
+    .about-content p{color:var(--gray);line-height:1.6;}
 
-    header {
-      background: var(--primary);
-      color: var(--text-light);
-      text-align: center;
-      padding: 3rem 1rem;
-    }
+    .card{background:#0f172a;border:1px solid #1e293b;border-radius:1rem;overflow:hidden;transition:transform .5s ease,box-shadow .5s ease;}
+    .card:hover{transform:translateY(-5px);box-shadow:0 12px 25px rgba(34,211,238,.12);}
+    .card img{width:100%;height:160px;object-fit:cover;}
+    .card-body{padding:1.25rem;}
+    .card-body h3{margin-bottom:.5rem;color:var(--accent);}
+    .card-body p{color:var(--gray);font-size:.9rem;}
+    .card-body a{display:inline-block;margin-top:1rem;color:var(--accent);text-decoration:none;font-weight:600;}
 
-    header h1 {
-      font-size: 2.5rem;
-    }
+    .email-box{background:#0f172a;border:1px solid #1e293b;border-radius:.75rem;padding:2rem;text-align:center;}
+    .email-box h3{margin-bottom:.75rem;}
+    .email-link{font-size:1.1rem;color:var(--accent);text-decoration:none;font-weight:600;word-break:break-all;}
+    .email-link:hover{text-decoration:underline;}
 
-    nav {
-      margin-top: 1rem;
-    }
+    footer{text-align:center;padding:2rem 0;font-size:.9rem;color:var(--gray);}
 
-    nav a {
-      color: var(--text-light);
-      margin: 0 1rem;
-      text-decoration: none;
-      font-weight: 500;
-    }
-
-    section {
-      padding: 2rem 1rem;
-      max-width: 1000px;
-      margin: auto;
-    }
-
-    h2 {
-      color: var(--primary);
-      margin-bottom: 1rem;
-    }
-
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.5rem;
-    }
-
-    .project {
-      background: #fff;
-      padding: 1rem;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      transition: transform 0.3s ease;
-    }
-
-    .project:hover {
-      transform: scale(1.02);
-    }
-
-    .project h3 {
-      margin-bottom: 0.5rem;
-    }
-
-    .project p {
-      font-size: 0.95rem;
-      margin-bottom: 0.5rem;
-    }
-
-    .project a {
-      color: var(--primary);
-      font-weight: bold;
-      text-decoration: none;
-    }
-
-    .contact-info p,
-    .contact-info a {
-      margin: 0.5rem 0;
-      color: var(--text-dark);
-      text-decoration: none;
-    }
-
-    footer {
-      text-align: center;
-      padding: 1.5rem;
-      background-color: #eee;
-      margin-top: 2rem;
-      font-size: 0.9rem;
-    }
-
-    @media (max-width: 600px) {
-      nav a {
-        display: block;
-        margin: 0.5rem 0;
-      }
-    }
+    /* ---------- slide‑in animation ---------- */
+    .section{opacity:0;transform:translateX(80px);transition:opacity .5s ease,transform .5s ease;}
+    .section.left-start{transform:translateX(-80px);}
+    .section.show{opacity:1;transform:translateX(0);}
   </style>
 </head>
 <body>
-
+  <!-- ===== Header ===== -->
   <header>
-    <h1>Vinita Sachdev</h1>
-    <p>Entry-Level Web Developer</p>
     <nav>
-      <a href="#about">About</a>
-      <a href="#projects">Projects</a>
-      <a href="#contact">Contact</a>
+      <div class="logo">Vinita</div>
+      <div class="nav-links">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+      </div>
     </nav>
   </header>
 
-  <section id="about">
-    <h2>About Me</h2>
-    <p>
-      I’m a Computer Science graduate with hands-on experience in Python, Java, SQL, and Web Development. 
-      I build user-focused applications with clean code and responsive design principles.
-    </p>
+  <!-- ===== Hero ===== -->
+  <section id="home" class="hero section"><!-- slides from right -->
+    <div class="hero-content">
+      <h1>Hello, I'm <span style="color:var(--accent);">Vinita Sachdev</span></h1>
+      <p>Entry‑Level Web Developer skilled in Python, SQL & modern web tech.</p>
+    </div>
+    <img src="formals.jpg" alt="Vinita photo" />
   </section>
 
-  <section id="projects">
-    <h2>Projects</h2>
-    <div class="projects-grid">
-      <div class="project">
-        <h3>To-Do List App</h3>
-        <p>Python + Tkinter GUI application for task tracking with add/edit/delete functionality.</p>
-        <a href="https://github.com/Vinita-21">View on GitHub</a>
-      </div>
-      <div class="project">
-        <h3>Password Generator</h3>
-        <p>Python app for generating secure passwords with customizable options and random logic.</p>
-        <a href="https://github.com/Vinita-21">View on GitHub</a>
-      </div>
-      <div class="project">
-        <h3>Employee Management System</h3>
-        <p>Java application with JDBC and barcode generation for managing employee records.</p>
-        <a href="https://github.com/Vinita-21">View on GitHub</a>
-      </div>
-      <div class="project">
-        <h3>Tic Tac Toe with AI</h3>
-        <p>Python game with Minimax algorithm to play against an intelligent AI opponent.</p>
-        <a href="https://github.com/Vinita-21">View on GitHub</a>
-      </div>
+  <!-- ===== About ===== -->
+  <section id="about" class="about section left-start"><!-- slides from left -->
+    <img src="formals.jpg" alt="About image" />
+    <div class="about-content">
+      <h2>About Me</h2>
+      <p>Computer Science graduate passionate about web and software development with hands‑on experience in Python, Java, and SQL. Strong in backend development, database management, and SDLC practices. Excellent communication and problem‑solving skills with a collaborative mindset and eagerness to grow in an Agile environment.</p>
     </div>
   </section>
 
-  <section id="contact">
-    <h2>Contact</h2>
-    <div class="contact-info">
-      <p>Email: <a href="mailto:vinitasachdev21@gmail.com">vinitasachdev21@gmail.com</a></p>
-      <p>LinkedIn: <a href="https://www.linkedin.com/in/vinita-sachdev-626860251/" target="_blank">Vinita Sachdev</a></p>
-      <p>GitHub: <a href="https://github.com/Vinita-21" target="_blank">Vinita-21</a></p>
+  <!-- ===== Projects ===== -->
+  <section id="projects" class="section"><!-- slides from right -->
+    <h2 class="projects-title" style="text-align:center;margin-bottom:2rem;">Projects</h2>
+    <div class="projects-grid" id="projectsGrid"></div>
+  </section>
+
+  <!-- ===== Contact ===== -->
+  <section id="contact" class="section left-start"><!-- slides from left -->
+    <div class="email-box">
+      <h3>Reach Me Directly</h3>
+      <a href="mailto:vinitasachdev21@gmail.com" class="email-link">vinitasachdev21@gmail.com</a>
+      <p style="color:var(--gray);margin-top:.5rem;">(Click to open your email client or copy the address)</p>
     </div>
   </section>
 
-  <footer>
-    &copy; 2025 Vinita Sachdev. Built with HTML & CSS.
-  </footer>
+  <footer>© <span id="year"></span> Vinita Sachdev. All rights reserved.</footer>
 
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  /* ------- Populate projects grid ------- */
+  const projects=[
+    {title:"Personal Portfolio Website",description:"Responsive portfolio using HTML & CSS.",image:"potfolio.png",link:"https://github.com/Vinita-21/CodSoft"},
+    {title:"To‑Do List App",description:"GUI task manager in Python & Tkinter.",link:"https://github.com/Vinita-21/CodSoft/blob/main/CodSoft_task001.mp4"},
+    {title:"Calculator",description:"Basic arithmetic calculator in Python & Tkinter.",link:"https://github.com/Vinita-21/CodSoft"},
+    {title:"Password Generator",description:"Secure password tool in Python.",link:"https://github.com/Vinita-21/CodSoft"},
+    {title:"Employee Mgmt System",description:"Java desktop app with barcode integration.",image:"employee.png"}
+  ];
+  const grid=document.getElementById("projectsGrid");
+  projects.forEach(p=>{
+    const c=document.createElement("div");
+    c.className="card";
+    c.innerHTML=`<img src="${p.image||'placeholder.png'}" alt="${p.title}"/><div class="card-body"><h3>${p.title}</h3><p>${p.description}</p><a href="${p.link}" target="_blank">View →</a></div>`;
+    grid.appendChild(c);
+  });
+
+  /* ---------- slide‑in observer ---------- */
+  const observer=new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        entry.target.classList.add('show');
+        observer.unobserve(entry.target);
+      }
+    });
+ },{threshold:0.15});
+
+  document.querySelectorAll('.section').forEach(sec=>observer.observe(sec));
+</script>
 </body>
 </html>
-
